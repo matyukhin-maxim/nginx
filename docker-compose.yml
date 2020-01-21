@@ -1,0 +1,26 @@
+version: '3'
+
+networks:
+  dev:
+
+volumes:
+  ng_logs:
+
+services:
+  stora:
+    image: nginx/custom
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      args:
+        V_NGINX: 1.17.7
+    container_name: storage
+    restart: always
+    environment:
+      V_NGINX: 1.17.7
+    ports:
+      - 80:80
+    networks:
+      - dev
+    volumes:
+      - ./logs/:/var/log/nginx/
